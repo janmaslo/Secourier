@@ -16,7 +16,10 @@
 	<DIV class="left">
 		<H1>
 		Skippr is a file sharing service
-	        powered by the HOPR network
+	        powered by the
+		<A class="HOPR" href="https://hoprnet.org">HOPR</A>
+		<!-- <img src="./logo.svg" alt="HOPR" width=100em /> -->
+		network
 		</H1>
 		<P>
 		Skippr combines the decentralized nature of networks such as			bittorrent with the tor-like privacy of HOPR
@@ -49,16 +52,36 @@
 			<IMG src="./Icons/file_lock.png" height=25 width=25 />
 			<INPUT type="file" name="file" />
 		</LABEL>
-		<DIV class="text-input-container">
+		<DIV class="input-flex">
+		<DIV class="input-left">
 		<LABEL>
-			Your Address
+			HTTP Endpoint
 			<INPUT type="text" id="name" name="name" />
 		</LABEL>
-		<P> ==> </P>
 		<LABEL>
-			The Recipient's Address
+			WS Endpoint
+			<INPUT type="text" id="name" name="name" />
+		</LABEL>
+		<LABEL>
+			Security Token
 			<INPUT type="text" id="other" name="other" />
 		</LABEL>
+		</DIV>
+		<P> ==> </P>
+		<DIV class="input-right">
+		<LABEL>
+			HTTP Endpoint
+			<INPUT type="text" id="name" name="name" />
+		</LABEL>
+		<LABEL>
+			WS Endpoint
+			<INPUT type="text" id="name" name="name" />
+		</LABEL>
+		<LABEL>
+			Security Token
+			<INPUT type="text" id="other" name="other" />
+		</LABEL>
+		</DIV>
 		</DIV>
 
 		</FORM>
@@ -70,7 +93,6 @@
 			The Recipient's Address
 			<INPUT type="text" id="name" name="name" />
 		</LABEL>
-		<P> ==> </P>
 		<LABEL>
 			Your Address
 			<INPUT type="text" id="other" name="other" />
