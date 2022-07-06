@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<HTML lang="en-US">
+	<HEAD>
+	<META charset="UTF-8">
+	<TITLE>Skippr</TITLE>
+	<LINK rel="stylesheet" href="style.css" />
+	<SCRIPT src="app.js" defer></SCRIPT>
+	</HEAD>
+
+	<BODY>
+	<HEADER>
+		<H1>Skippr</H1>
+		<P>by HOPR</P>
+	</HEADER>
+	<MAIN>
+	<DIV class="left">
+		<H1>
+		Skippr is a file sharing service
+	        powered by the HOPR network
+		</H1>
+		<P>
+		Skippr combines the decentralized nature of networks such as			bittorrent with the tor-like privacy of HOPR
+		</P>
+		<P>
+		Skippr is perhaps the only file sharing service that 
+		does not leak your IP address (dev note: verify! if 
+		it's not then change it to 'one of the few' <br>
+		<A href="https://www.hoprnet.org">Learn more about HOPR</A>	
+		</P>
+		<DIV class="button-container">
+		<BUTTON class="button" href="/">
+			Send your files now
+		</BUTTON>
+		</DIV>
+	</DIV>
+	<DIV class="right">
+		[PLACEHOLDER] An illustration of a frog with a mailman hat holding a
+		locked file. Could be called skipper.
+	</DIV>
+
+	<!-- Skippr is the convenience of bittorrent 
+	     combined with the tor-like privacy of HOPR -->
+	</MAIN>
+	<DIV class="prompt" >
+		<FORM>
+		<H1>Send</H1>
+		<LABEL class="label-button">
+			Choose The File
+			<IMG src="./Icons/file_lock.png" height=25 width=25 />
+			<INPUT type="file" name="file" />
+		</LABEL>
+		<DIV class="text-input-container">
+		<LABEL>
+			Your Address
+			<INPUT type="text" id="name" name="name" />
+		</LABEL>
+		<P> ==> </P>
+		<LABEL>
+			The Recipient's Address
+			<INPUT type="text" id="other" name="other" />
+		</LABEL>
+		</DIV>
+
+		</FORM>
+		<FORM>
+		<H1>Receive</H1>
+		<DIV class="text-input-container">
+		<LABEL>
+			The Recipient's Address
+			<INPUT type="text" id="name" name="name" />
+		</LABEL>
+		<P> ==> </P>
+		<LABEL>
+			Your Address
+			<INPUT type="text" id="other" name="other" />
+		</LABEL>
+		</DIV>
+		<LABEL class="label-button">
+			Download Your File
+			<IMG src="./Icons/file_lock.png" height=25 width=25 />
+		</LABEL>
+		</FORM>
+		<BUTTON></BUTTON>
+	</DIV>
+	<DIV class="image">
+		Placeholder for an image, possibly showing
+		two individuals (represented by balls with eyes)
+		on each side with the file being transferred skipping over 
+		HOPR nodes like a rock. Under the dotted trajectory of the
+		'rock' malicious agents represented by eyes with horns (or sharks?)
+	</DIV>
+	</BODY>
+</HTML>

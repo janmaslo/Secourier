@@ -1,0 +1,161 @@
+@import { url("./Fonts/Oxygen-Regular.ttf"); }
+
+@fontface {
+	font-family: LogoFont;
+	src: url("./Fonts/Oxygen-Regular.ttf");
+}
+
+* { box-sizing: border-box; }
+
+BODY { background-color: #151515; height: 100vh; }
+
+* {
+	padding: 0;
+	border: 0;
+	margin: 0;
+	font-family: sans;
+}
+
+HEADER {
+	background-color: #715131;
+	color: #F0EFF0;
+	font-family: monospace;
+	background-image: linear-gradient(to right, #715131, #89715B);
+	/* border-bottom: 1px solid red; */
+	height: 3.5em;
+	padding: 0.3em;
+	border-radius: 0 0 5px 5px;
+}
+HEADER H1 { display: inline; }
+HEADER P { display: inline; font-style: italic; }
+
+MAIN {
+	display: flex;
+	color: #1a1110;
+	padding-left: 2em;
+	padding-right: 2em;
+}
+
+MAIN H1 { 
+	color: #1a1110;
+	font-size: 3em;
+	border-bottom: 3px dotted black;
+}
+
+P {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.button-container { width: 50%; display: flex; align-items: center; justify-content: center; }
+
+.button {
+	display: block;
+	color: white;
+	background-color: #717141;
+	padding: 0.6em;
+	font-size: 1.2em;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	border-radius: 0.5em;
+	box-shadow: 0 5px 0.5em #1a1110;
+	transition: box-shadow 0.3s;
+	transition: width 0.3s;
+}
+.button:hover { box-shadow: 0 5px 0.3em #1a1110; width: 98%; height: 98% }
+.button.pressed { box-shadow: none; width: 96%; height 96%; }
+
+.left {
+	color: #1a1110;
+	background-color: #E7D3CC;
+	padding: 1.5em;
+	width: 70%;
+	border-right: 4px solid white;
+	border-bottom: 4px solid white;
+	border-radius: 0 0 8px 8px;
+}
+
+.right {
+	position: absolute;
+	right: 15px;
+	width: 15%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1em;
+	color: white;
+	border: 1px solid white;
+	height: 25em;
+}
+
+.prompt {
+	position: absolute;
+	padding: 23px;
+	background-color: white;
+	color: black;
+	margin-left: 4em;
+	width: 60%;
+	height: 0;
+	transition: height 1.2s ease-in-out;
+	box-shadow: 0 5px 0.5em #1a1110 inset;
+
+	font-weight: bold;
+}
+
+.prompt * {
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 1.5s;
+}
+
+.prompt.extended {
+	height: 24em;
+	border-radius: 0 0 5px 5px;
+}
+
+.prompt input {
+	display: block;
+	height: 1.8em;
+	width: 20em;
+	border: 2px dotted black;
+	border-radius: 5px;
+}
+
+.prompt input[type="file"] { display: none; }
+.label-button {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	height: 2.5em;
+	padding: 0.5em;
+	border: 2px dotted black;
+	width: 40%;
+	cursor: pointer;
+	margin: auto;
+	margin-bottom: 1em;
+}
+
+.prompt H1 { font-size: 1.3em; border-bottom: 1px solid black; margin-bottom: 0.8em; }
+
+.text-input-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1em;
+}
+
+.image {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 3em;
+	color: white;
+	border: 1px solid white;
+	text-align center;
+	height: 15em;
+	margin-left: 3em;
+	margin-top: 5em;
+	width: 60%;
+}
