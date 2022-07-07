@@ -1,13 +1,26 @@
-const button = document.querySelector(".button");
-const prompt = document.querySelector(".prompt");
-const promptKids = document.querySelectorAll(".prompt *");
+async function foo() {
 
-button.addEventListener("click", () => {
-	button.classList.add("pressed");
-	/* prompt.hidden = false; */
-	prompt.classList.add("extended");
-	promptKids.forEach(child => {
-		child.style.visibility = "visible";
-		child.style.opacity = 100;
-	});
-});
+	`$()api/v2/messages`
+
+	await fetch("https://cat-fact.herokuapp.com/facts").then(response => 
+		{ console.log(response); }).catch(err =>
+		{ console.log(error); });
+	
+}
+
+foo();
+
+async function send_message() {
+	const headers = new Headers({"Content-Type": "application/json",
+	                             "Accept-Content": "application/json"});
+	await fetch(`$(http_endpoint)/api/v2/messages`, {
+	            method: "POST";
+	            headers: headers;
+	            body: JSON.stringify({
+	                recipient:
+	                body:
+	            });
+
+function() {
+	
+}();

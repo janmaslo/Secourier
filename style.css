@@ -8,6 +8,8 @@
 * { box-sizing: border-box; }
 
 BODY { background-color: #151515; height: 120vh; }
+P { font-size: 1.2em; font-weight: bold;}
+A { color: #5439F0; text-decoration: none; }
 
 * {
 	padding: 0;
@@ -15,7 +17,6 @@ BODY { background-color: #151515; height: 120vh; }
 	margin: 0;
 	font-family: monospace;
 }
-* A { font-decoration: none; }
 
 HEADER {
 	background-color: #715131;
@@ -103,7 +104,6 @@ P {
 	height: 0;
 	transition: height 1s ease-out;
 	box-shadow: 0 5px 0.5em #1a1110 inset;
-
 	font-weight: bold;
 }
 

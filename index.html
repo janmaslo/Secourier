@@ -4,6 +4,7 @@
 	<META charset="UTF-8">
 	<TITLE>Skippr</TITLE>
 	<LINK rel="stylesheet" href="style.css" />
+	<SCRIPT src="ui.js" defer></SCRIPT>
 	<SCRIPT src="app.js" defer></SCRIPT>
 	</HEAD>
 
@@ -22,9 +23,9 @@
 		network
 		</H1>
 		<P>
-		Skippr combines the decentralized nature of networks such as			bittorrent with the tor-like privacy of HOPR
-		</P>
-		<P>
+		Skippr combines the decentralized nature of networks such as bittorrent with the tor-like privacy of HOPR.
+		Your files are sent over HOPR, a secure and private network ran by thousands ([dev note] is it?) of every-day people earning cryptocurrency
+		for keeping the net live, private and secure.
 		Skippr is perhaps the only file sharing service that 
 		does not leak your IP address (dev note: verify! if 
 		it's not then change it to 'one of the few' <br>
@@ -45,7 +46,8 @@
 	     combined with the tor-like privacy of HOPR -->
 	</MAIN>
 	<DIV class="prompt" >
-		<FORM style="margin-bottom: 3em;">
+		<!-- Prevent the form from refreshing the page on submit -->
+		<FORM style="margin-bottom: 3em;" onsubmit="return false">
 		<H1>Send</H1>
 		<LABEL class="label-button">
 			Choose The File
@@ -83,7 +85,7 @@
 		</LABEL>
 		</DIV>
 		</DIV>
-
+		<BUTTON type="submit">Send It!</BUTTON>
 		</FORM>
 		<FORM>
 		<DETAILS>
