@@ -1,30 +1,54 @@
-const button = document.querySelector(".button");
-const prompt = document.querySelector(".prompt");
-const promptKids = document.querySelectorAll(".prompt *");
+const $ = document.querySelector.bind(document);
 
-const submit_button = document.querySelector("FORM>BUTTON");
+const full            = $("#full-folder");
+const send_button     = $(".button.send");
+const download_button = $(".button.download");
+const prompt          = $(".prompt");
+const background_folder = $("#background-folder");
 
-function extend_prompt() {
-	button.classList.add("pressed");
-	/* prompt.hidden = false; */
+const front = $(".front");
+
+(function() {
+	send_button.addEventListener("click", () => {
+		Extend_prompt();
+	});
+
+	download_button.addEventListener("click", () => {
+		full.classList.add("pulled-up")
+		background_folder.classList.add("revealed")
+	});
+})()
+
+function Collapse_prompt() {
+	button.innerText = "Send more!";
+
+	prompt.classList.remove("centered");
+	setTimeout(() => {
+		prompt.classList.remove("extended");
+		$("BODY").classList.remove("blurred");
+	}, 1200);
+
+	document.body.removeEventListener("click", minimize_prompt)
+}
+
+function Extend_prompt() {
+	send_button.classList.add("pressed");
+
 	prompt.classList.add("extended");
-	promptKids.forEach(child => {
-		child.style.visibility = "visible";
-		child.style.opacity = 100;
-	});
-}
-	
-function collapse_prompt() {
-	prompt.style.height = 0;
-	promptKids.forEach(child => {
-		child.style.visibility = "hidden";
-		child.style.opacity = 0;
-	});
-	prompt.innerText = "Your Files Have Been Sent!";
-	button.innerText = "Spread The Word [ico]";
-	button.style.background = "#4429E0";
+
+	setTimeout(() => {
+		prompt.classList.add("centered");
+		document.body.classList.add("blurred");
+
+		document.body.addEventListener("click", minimize_prompt)
+	}, 800)
 }
 
+function minimize_prompt(ev) {
+	if (ev.target == prompt || prompt.contains(ev.target))
+		return
 
-button.onclick = extend_prompt;
-submit_button.onclick = collapse_prompt;
+	prompt.classList.remove("extended");
+	document.body.classList.remove("blurred");
+	prompt.classList.remove("centered");
+}
