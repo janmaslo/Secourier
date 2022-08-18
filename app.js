@@ -17,7 +17,6 @@ let received_file = "";
 
 	file_dropzone.addEventListener("dragover", ev => {
 		ev.preventDefault()
-		console.log("dragged over")
 	})
 	file_input.addEventListener("change", () => {
 		if (file = file_input.files[0])
@@ -66,8 +65,6 @@ let received_file = "";
 function get_file_drop(ev) {
 	ev.preventDefault()
 	let file;
-
-        console.log("dropped something in")
 
         if (!ev.dataTransfer.items) {
                 return;
@@ -164,8 +161,6 @@ async function fetch_hopr_address(http_endpoint, token) {
 	            headers: headers,
 	}).then(res => res.json())
 
-	console.log(account.hoprAddress)
-
 	return account.hoprAddress
 }
 
@@ -192,7 +187,6 @@ async function fetch_file(from_ws, token) {
 
 	socket.onerror = (ev) => {
 		socket.removeEventListener("close", close)
-		console.log("socket error: ", ev)
 
 		get_submit_button.textContent = "Can't reach that websocket. Sorry! <BR/> Click to try again"
 		get_submit_button.classList.add("err")
