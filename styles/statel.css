@@ -235,6 +235,9 @@ MAIN H1 {
 	transition:        top       .7s ease-out,
 	                   transform .7s ease-out;
 }
+.prompt .input-left {
+	width: 100%;
+}
 .prompt.extended { top: 120%; }
 .prompt.centered {
 	z-index:   19;
@@ -312,6 +315,9 @@ DIV.form {
 	height:           21rem;
 	justify-content:  center;
 	gap:              2rem;
+}
+DIV.form.send {
+	height: 26rem;
 }
 DIV.form.get .input-left {
 	/*background:        linear-gradient(to bottom right, var(--hopr-blue), var(--darker-blue));*/
