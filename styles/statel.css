@@ -31,20 +31,59 @@ A {
 HEADER {
 	display:           flex;
 	justify-content:   space-between;
+	align-items:       center;
 	position:          relative;
 	width:             100%;
 	color:             #F0EFF0;
 	height:            3.8em;
-	padding:           0.3em;
 	border-bottom:     2px solid #0000F0;
 	z-index:           99;
 	background-image:  linear-gradient(to right,
 	                                   #0000A0,
 	                                   #0000F4);
 }
-HEADER H1 { display: inline; font-family: sans; }
+HEADER H1 { display: inline;  margin: 0.3rem;}
+HEADER * { font-family: sans; }
 HEADER BUTTON::after {
 	content: "";
+}
+DIV.settings.hidden {
+	top: -100%;
+}
+
+BUTTON.settings {
+	width:  14rem;
+	height: 70%;
+	background-color: var(--darker-blue);
+	border-radius: .4rem;
+
+	font-size: 1.5rem;
+	color: #f8f8ff;
+	/*background: none;*/
+}
+DIV.settings {
+	display:          flex;
+	justify-content:  space-around;
+	align-items:      center;
+	flex-direction:   column;
+	position:         absolute;
+	right:            2rem;
+	height:           23rem;
+	z-index:          9;
+	border-radius:    .5rem;
+	background-color: var(--hopr-blue);
+
+	padding: 1.8rem;
+	/*border: 2px solid #f8f8ff;*/
+
+	background-image:  linear-gradient(to right,
+	                                   #0000A0,
+	                                   #0000F4);
+	top: 5%;
+	transition: top 1s;
+}
+DIV.settings * {
+	width: 100%;
 }
 
 MAIN {
@@ -58,6 +97,7 @@ MAIN H1 {
 	color:          #1a1110;
 	font-size:      3em;
 	border-bottom:  4px dashed var(--dark-folder);
+	margin-bottom: 1.5rem;
 }
 
 #full-folder {
@@ -72,10 +112,11 @@ MAIN H1 {
 	position:          sticky;
 	max-width:         70rem;
 	max-height:        27rem;
+	min-height:        24rem;
 	padding:           1.5em;
 	background-color:  var(--front-folder);
 	color:             #333333;
-	border:            .25em solid white;
+	border:            .25em solid #f8f8ff;
 	border-radius:     0 0 5px 0;
 	border-top:        none;
 	box-shadow:        0 0 1em black;
@@ -97,25 +138,24 @@ MAIN H1 {
 	/*box-shadow:        0 5px 0.5em #7E7773;*/
 }
 .front P {
-	font-size:    1.2em;
+	font-size:    1.35rem;
 	font-weight:  bold;
-	padding:       1em;
+	padding:       .5rem;
 }
 .button-container {
 	width:            100%;
-	height:           3em;
+	height:           5rem;
 	display:          flex;
-	align-items:      center;
-	justify-content:  flex-begin;
+	align-items:      flex-end;
 	gap:              2rem;
 }
 
 .btn {
 	display:           block;
 	width:             35%;
-	height:            100%;
+	height:            3rem;
 	padding:           0.6em;
-	color:             white;
+	color:             #f8f8ff;
 	background-color:  #81814E;
 	font-size:         1.2em;
 	text-align:        center;
@@ -161,7 +201,7 @@ MAIN H1 {
 }
 #bg-folder .content .right {
 	width:       50%;
-	border:      3px dashed white;
+	border:      3px dashed #f8f8ff;
 	border-top:  none;
 }
 
@@ -182,12 +222,12 @@ MAIN H1 {
 .prompt {
 	width:             95%;
 	max-height:        38em;
-	min-height:        35em;
+	min-height:        40em;
 	padding:           23px;
 	position:          absolute;
-	top:               0;
+	top:               -30%;
 	left:              2em;
-	background-color:  white;
+	background-color:  #f8f8ff;
 	color:             black;
 	font-weight:       bold;
 	box-shadow:        0 .1px 9em #9F9994 inset;
@@ -203,14 +243,23 @@ MAIN H1 {
 }
 
 LABEL { color: #1D1A1A; }
-.form.get LABEL { color: white; font-weight: bold;}
+.form.get LABEL, .settings LABEL { color: #f8f8ff; font-weight: bold;}
 
 INPUT {
+	font-size:      1.5rem;
 	display:        block;
-	height:         2.5em;
-	width:          22em;
-	border:         1px solid #1a1110;
-	border-radius:  .4em;
+	height:         3.5rem;
+	width:          100%;
+	/*border:         1.5px solid var(--darker-blue);*/
+	border:         1.5px solid #AAA1A1;
+	border-radius:  .5rem;
+	padding-left:   1rem;
+}
+INPUT:focus {
+	outline:  none;
+}
+.submit-button.login {
+	height: 3.5rem;
 }
 
 BODY.blurred * :not(.prompt, .prompt *, #full-folder) {
@@ -235,7 +284,6 @@ BODY * { transition: filter 1s; }
 .prompt H1 {
 	font-size: 1.3em;
 	border-bottom: 1px solid black;
-	margin-bottom: 0.8em;
 }
 
 .text-input-container {
@@ -248,13 +296,12 @@ BODY * { transition: filter 1s; }
 .input-left {
 	display:         flex;
 	flex-direction:  column;
-	gap:             .5em;
-	max-width:       min-content;
+	gap:             .8rem;
 }
 
 .input-flex {
 	display:          flex;
-	gap:              1em;
+	gap:              1rem;
 	justify-content:  center;
 	align-items:      center;
 	flex-direction:   column;
@@ -262,18 +309,19 @@ BODY * { transition: filter 1s; }
 }
 DIV.form {
 	display:          flex;
+	height:           21rem;
 	justify-content:  center;
 	gap:              2rem;
 }
 DIV.form.get .input-left {
 	/*background:        linear-gradient(to bottom right, var(--hopr-blue), var(--darker-blue));*/
 	padding:           2rem;
-	border:            2px solid white;
 	border-radius:     .5rem;
 	background-color:  var(--dark-folder);
-	background-image:  linear-gradient(to right,
-	                                   #5555A0,
-	                                   #5555F4);
+	background-image:  linear-gradient(to top right,
+	                                   #FFFFFF00, 75%,
+	                                   #7F6666);
+	                                   /*#3636FF);*/
 }
 
 .submit-button.err {
@@ -291,32 +339,34 @@ DIV.form.get .input-left {
 	transform:   rotate(8deg);
 }
 .submit-button.clicked {
-	border:            2px solid #00A;
-	opacity:           0.8;
+	border:   2px solid #00A;
+	opacity:  0.8;
 }
 .submit-button {
-	border-radius:     1rem;
-	width:             23rem;
-	height:            7rem;
-	font-weight:       bold;
-	font-size:         1.4rem;
-	color:             #EEF;
-	background:        linear-gradient(to bottom right, var(--hopr-blue), var(--darker-blue));
-	border:            2px solid white;
-	transition:        background .5s,
-	                   transform  .3s,
-	                   color      .3s;
+	border-radius:  1rem;
+	width:          23rem;
+	height:         7rem;
+	font-weight:    bold;
+	font-size:      1.4rem;
+	color:          #EEF;
+	background:     linear-gradient(to bottom right,
+	                                #6565FF,
+	                                var(--darker-blue));
+	/*border:         2px solid #f8f8ff;*/
+	transition:     background .5s,
+	                transform  .3s,
+	                color      .3s;
 }
 .submit-button:hover:not(.err) {
-	background-color:  #99F;
-	color:             white;
-	transform:         scale(.98);
-	filter:            brightness(1.1);
+	transform:    scale(.99);
+	filter:       brightness(1.05);
+	font-weight:  bold;
+	border:       1.5px solid #ADADBD;
 }
-.submit-button:active { color: white; }
+.submit-button:active { color: #f8f8ff; }
 
 FOOTER {
 	background-color: #1A1110;
 	width:            8rem;
-	color:            white;
+	color:            #f8f8ff;
 }
