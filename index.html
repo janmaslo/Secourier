@@ -2,127 +2,126 @@
 
 <HTML lang="en-US">
 <HEAD>
-    <META charset="UTF-8" />
-    <META name="viewport"
-          content="width=device-width,
-          initial-scale=1.0" />
-    
-    <TITLE>Skippr</TITLE>
-    
-    <LINK rel="stylesheet" href="style.css" />
-    <SCRIPT src="ui.js"   defer></SCRIPT>
-    <SCRIPT src="app.js"  defer></SCRIPT>
+      <META charset="UTF-8" />
+      <META name="viewport"
+            content="width=device-width,
+            initial-scale=1.0" />
+      
+      <TITLE>Secourier</TITLE>
+      
+      <LINK rel="stylesheet" href="styles/statel.css" />
+      <LINK rel="stylesheet" href="styles/dynel.css" />
+      <SCRIPT src="rlp.js"   defer></SCRIPT>
+      <SCRIPT src="ui.js"   defer></SCRIPT>
+      <SCRIPT src="app.js"  defer></SCRIPT>
 </HEAD>
 
 <BODY>
-    <HEADER>
-        <H1>Skippr</H1>
-        <P>by HOPR</P>
-    </HEADER>
+      <HEADER>
+            <H1>Secourier</H1>
+            <BUTTON class="settings">&cog-wheel;</BUTTON>
+      </HEADER>
 
-    <MAIN>
-        <DIV id="full-folder">
-    
-            <DIV class="front">
-                <H1>
-                    <!--Skippr is a file sharing service
-                           powered by the -->
-                    Share your files anonymously <br /> over the
-                    <A class="HOPR" href="https://hoprnet.org">HOPR</A>
-                    network
-                </H1>
-                <!-- No IP Address no ... no ... . Did you really send it if noone saw it? Yes you did. -->
-            
-                <P>Skippr combines the decentralized nature of networks such as
-                   bittorrent with the tor-like privacy of HOPR. Your files are
-                   sent over HOPR, a secure and private network ran by
-                   every-day people earning cryptocurrency
-                   for keeping the net live, private and secure.
-                   Skippr is perhaps the only file sharing service that 
-                   does not leak your IP address. Get started now! <br>
-
-                   <A href="https://www.hoprnet.org">Learn more about HOPR</A>	
-                </P>
-                <DIV class="button-container">
-                    <BUTTON class="button send" href="/">
-                    	Send your files now
-                    </BUTTON>
-                    <BUTTON class="button download" href="/">
-                    	Download them
-                    </BUTTON>
-                </DIV> <!-- button-container -->
-            </DIV> <!-- .front -->
+      <MAIN>
+            <DIV id="full-folder">
+                  <DIV class="front">
+                        <H1>
+                            Share your files anonymously <BR /> over the
+                            <A class="HOPR" href="https://hoprnet.org">HOPR</A>
+                            network
+                        </H1>
+                        <!-- No IP Address no ... no ... . Did you really send it if noone saw it? Yes you did. -->
+              
+                        <P>Skippr combines the decentralized nature of networks such as
+                           bittorrent with the tor-like privacy of HOPR. Your files are
+                           sent over HOPR, a secure and private network ran by
+                           every-day people earning cryptocurrency
+                           for keeping the net live, private and secure.
+                           Skippr is perhaps the only file sharing service that 
+                           does not leak your IP address. Get started now!
+                           <BR/>
         
-            <!-- Skippr is the convenience of bittorrent 
-                 combined with the tor-like privacy of HOPR -->
-
-            <DIV id="background-folder">
-                <DIV class="content">
-                    <FORM class="get" onsubmit="return false">
-                        <DIV class="input-left">
-                            <LABEL>
-                                WS endpoint
-                                <INPUT type="text"
-                                       class="ws">
-                            </LABEL>
-                            
-                            <LABEL>
-                                Security token
-                                <INPUT type="text" class="token"></INPUT>
-                            </LABEL>
-                            <BUTTON class="submit-button download">
-                              Get them!
-                            </BUTTON>
-                        </DIV> <!-- input-left -->
-                    </FORM>
-                </DIV> <!-- content -->
-            </DIV> <!-- background-folder -->
-        
-            <DIV class="prompt">
-                <!-- Prevent the form from refreshing the page on submit -->
-                <H1>Send</H1>
-                <FORM class="send" onsubmit="return false">
-                    <LABEL id="drop-zone" class="label-button">
-                        <INPUT type="file" name="file" />
-                        Drop in the file or <br />
-                        click to choose it
-                        <IMG src="./Icons/file_lock.png"
-                             height=25
-                             width=25 />
-                    </LABEL>
+                           <A href="https://www.hoprnet.org">Learn more about HOPR</A>	
+                        </P>
+                        <DIV class="button-container">
+                              <BUTTON class="btn send" href="/">
+                                    Send your files now!
+                              </BUTTON>
+                              <BUTTON class="btn download" href="/">
+                                    Download them
+                              </BUTTON>
+                        </DIV> <!-- button-container -->
+                  </DIV> <!-- .front -->
+          
+                  <!-- Skippr is the convenience of bittorrent 
+                       combined with the tor-like privacy of HOPR -->
+      
+                  <DIV id="bg-folder">
+                        <DIV class="content">
+                              <DIV class="form get">
+                                    <DIV class="input-left">
+                                          <LABEL>
+                                           Node URL (HTTP endpoint)
+                                           <INPUT type="text"
+                                                  class="ws"
+                                                  placeholder="http:// | wss://"/>
+                                           </LABEL>
+                                    
+                                           <LABEL>
+                                                 Password (Security token)
+                                                 <INPUT type="text" class="token"></INPUT>
+                                           </LABEL>
+                                           <BUTTON class="submit-button download">
+                                                 Get them!
+                                           </BUTTON>
+                                    </DIV> <!-- input-left -->
+                                    <DIV class="right">
+                                    </DIV> <!-- right -->
+                              </DIV> <!-- form.get -->
+                        </DIV> <!-- content -->
+                  </DIV> <!-- bg-folder -->
+  
+              <DIV class="prompt">
+                    <H1><EM>Secure Transfer</EM></H1>
+                    <DIV class="form send">
+                          <LABEL id="drop-zone" class="label-button">
+                                <INPUT type="file"
+                                 name="file" />
+                                 Drop in the file or
+                                 <BR />click to choose it
+                                 <IMG src="./Icons/file_lock.png"
+                                      height=25
+                                      width=25 />
+                          </LABEL>
                     <DIV class="input-flex">
-                        <DIV class="input-left">
-                            <LABEL>
-                                HTTP Endpoint
-                                <DIV class="http">
-                                    <SPAN>http://</SPAN>
-                                    <INPUT type="text" class="http" />
-                                </DIV>
-                            </LABEL>
-                            </P>
-                            <LABEL>
-                                Security Token
-                                <INPUT type="text" class="token" />
-                            </LABEL>
-                        </DIV> <!--input-left-->
-                    <BUTTON class="submit-button" type="submit">
-                        Send 'em!
-                    </BUTTON>
+                          <DIV class="input-left">
+                                <LABEL>
+                                  Node URL (HTTP Endpoint)
+                                  <INPUT type="text"
+                                         class="http"
+                                         placeholder="http://"/>
+                                </LABEL>
+                                <LABEL>
+                                      Password (Security Token)
+                                      <INPUT type="text" class="token" />
+                                </LABEL>
+                                <LABEL>
+                                      HOPR Address
+                                      <INPUT type="text" class="address" />
+                                </LABEL>
+                                <A href=""><I>What do I put here?</I></A>
+                          </DIV> <!--input-left-->
+                          <BUTTON class="submit-button" type="submit">
+                              Send 'em!
+                          </BUTTON>
                     </DIV> <!-- input-flex -->
-                </FORM>
-            </DIV> <!-- prompt -->
-        </DIV> <!-- full-folder -->
-    </MAIN>
-
-    <FOOTER>
-    	STUFF
-    </FOOTER>
-
-    <TEMPLATE>
-    </TEMPLATE>
-
-    <TEMPLATE>
-    </TEMPLATE>
-
+              </DIV>
+              </DIV> <!-- prompt -->
+            </DIV> <!-- full-folder -->
+      </MAIN>
+  
+      <FOOTER>
+            STUFF
+      </FOOTER>
 </BODY> <!-- END BODY -->
 </HTML>

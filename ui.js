@@ -1,26 +1,40 @@
 const $ = document.querySelector.bind(document);
 
 const full            = $("#full-folder");
-const send_button     = $(".button.send");
-const download_button = $(".button.download");
+const send_button     = $(".btn.send");
+const download_button = $(".btn.download");
 const prompt          = $(".prompt");
-const background_folder = $("#background-folder");
 
 const front = $(".front");
 
 (function() {
 	send_button.addEventListener("click", () => {
-		Extend_prompt();
+		console.log("adding pressed")
+		send_button.classList.add("pressed");
+		console.log("added pressed?")
+		setTimeout(Extend_prompt, 200)
 	});
 
 	download_button.addEventListener("click", () => {
-		full.classList.add("pulled-up")
-		background_folder.classList.add("revealed")
+		download_button.classList.add("pressed");
+		full.classList.add("open")
+
+		let x = document.createElement("div")
+		x.classList = "close-button"
+
+		x.onclick = () => {
+			download_button.classList.remove("pressed");
+			full.classList.remove("open")
+			x.remove()
+		}
+
+		front.appendChild(x)
 	});
 })()
 
 function Collapse_prompt() {
-	button.innerText = "Send more!";
+	send_button.classList.remove("pressed")
+	send_button.innerText = "Send more!";
 
 	prompt.classList.remove("centered");
 	setTimeout(() => {
@@ -32,8 +46,6 @@ function Collapse_prompt() {
 }
 
 function Extend_prompt() {
-	send_button.classList.add("pressed");
-
 	prompt.classList.add("extended");
 
 	setTimeout(() => {
@@ -45,7 +57,9 @@ function Extend_prompt() {
 }
 
 function minimize_prompt(ev) {
-	if (ev.target == prompt || prompt.contains(ev.target))
+	send_button.classList.remove("pressed")
+
+	if (prompt.contains(ev.target) || ev.target.classList.contains("prompt-item"))
 		return
 
 	prompt.classList.remove("extended");
