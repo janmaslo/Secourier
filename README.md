@@ -3,20 +3,19 @@ SeCourier
 
 *Did you really send it if noone saw it? Yes you did.*
 
-SeCourier - a web app that sends your files over the hopr network;
+Secourier - a web app that sends your files over the [HOPR](https://hoprnet.org/) network;
 no IP, no snooping, no fluff. Anonymity by default.
 
 The security and anonimity of HOPR is made possible thanks to people like you,
-that's why we make sure you get ...paid... for keeping fast and secure.
+that's why we make sure you get rewarded for keeping fast and secure.
 
-(Learn more about getting paid for participating in the HOPR network)[]
+[Learn more about getting paid for participating in the HOPR network](https://hoprnet.org/token)
 
-secure decentralized storage
 
 Demo
 =====
 
-
+https://user-images.githubusercontent.com/93952256/186887583-e53dfa03-5244-4408-95e9-b06091cf5d37.mp4
 
 Technicals
 =====
