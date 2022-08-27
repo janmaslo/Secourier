@@ -75,10 +75,10 @@ containing the file is displayed to the user.
 Possible additions
 ----
 
-* Display Upload and Download progress percentage
-* Handling the sending/receiving of multiple files
-* Code cleanups -- reducing the line count and file sizes
+* [x] Display Upload and Download progress percentages,
+* [ ] Handle sending/receiving multiple files,
+* Code cleanups -- reduce the line count and file sizes,
 * General UI improvements including:
-	- layout adjustments
+	- layout adjustments,
 	- colorscheme changes
 * Allow logging in with the user's HOPR node credentials
