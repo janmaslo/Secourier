@@ -4,14 +4,15 @@ const MAX_MSG_SIZE = 400
 
 const file_input         = $("DIV.form INPUT[type='file']");
 const file_dropzone      = $("#drop-zone");
-const send_submit_button = $(".form.send BUTTON");
+const send_submit_btn = $(".form.send BUTTON");
 const bg_folder          = $("#bg-folder");
-const get_submit_button  = $("#bg-folder BUTTON");
-
-const ws_input   = $("DIV.form.get  INPUT.ws")
-const http_input = $("DIV.form.send INPUT.http")
+const get_submit_btn  = $("#bg-folder BUTTON");
+const ws_input           = $("DIV.form.get  INPUT.ws")
+const http_input         = $("DIV.form.send INPUT.http")
 
 const usr_tok_input = $(".form.send INPUT.token")
+
+const errbar = $(".errbar")
 
 let received_file = ""
 
@@ -21,23 +22,38 @@ const get_headers = (token) => new Headers({
 	"Authorization":  "Basic " + btoa(token),
 });
 
+const request_data = {
+
+
+};
+
+const pctage = (num, ofnum) => `${(num / ofnum * 100).toFixed(0)}%`
+
+function set_errbar(text) {
+	errbar.textContent = text
+	
+	errbar.classList.add("active")
+
+	setTimeout(() => {
+		errbar.classList.remove("active")
+		errbar.textContent = ""
+	}, 3000)
+}
+
 (function()
 {
-	let params = new URLSearchParams(window.location.search)
+	const params = new URLSearchParams(window.location.search)
 
 	//let this_page = new URL(window.location)
 	//this_page.searchParams.append("apiEndpoint", "foo")
 	//this_page.searchParams.append("apiToken",    "bar")
 
-	//console.log(this_page)
-	//console.log(this_page.toString())
-
 	if (!params) {
 		return
 	}
 
-	let api_token    = params.get("apiEndpoint")
-	let api_endpoint = params.get("apiToken")
+	const api_token    = params.get("apiEndpoint")
+	const api_endpoint = params.get("apiToken")
 
 	http_input.value    = api_endpoint
 	usr_tok_input.value = api_token
@@ -61,41 +77,40 @@ const get_headers = (token) => new Headers({
 			update_file_input(file)
 	});
 
-	send_submit_button.addEventListener("click", async () => {
-		let target_http    = $(".form.send INPUT.http ").value
-		let target_token   = $(".form.send INPUT.token").value
-		let target_address = $(".form.send INPUT.address").value
+	send_submit_btn.addEventListener("click", async () => {
+		const target_http    = $(".form.send INPUT.http ").value
+		const target_token   = $(".form.send INPUT.token").value
+		const target_address = $(".form.send INPUT.address").value
 
-		if (!file) {
-			send_submit_button.textContent = "Something's wrong!"
-			send_submit_button.classList.add("err")
+		if (!file || !target_http || !target_token || !target_address) {
+			set_errbar("Please fill out all fields.")
+			//send_submit_btn.textContent = "Something's wrong!"
 		}
 
-		console.log(file)
-		//send_submit_button.textContent = "Please Wait..."
-
 		if (!await send_file(file, target_http, target_token, target_address)) {
-			send_submit_button.textContent = "somethings wrong"
-			send_submit_button.classList.add("err")
+			send_submit_btn.textContent = "somethings wrong"
+			//send_submit_button.classList.add("err")
 
 			return
 		}
 
-		send_submit_button.textContent = "File Sent!"
+		send_submit_btn.textContent = "File Sent!"
 		Collapse_prompt()
 	});
 
-	get_submit_button.addEventListener("click", async () => {
+	get_submit_btn.addEventListener("click", async () => {
 		const from_ws    = $(".form.get INPUT.ws").value
 		const from_token = $(".form.get INPUT.token").value
 		
-		
 		console.log("trying to fetch")
+		
+		if (!from_ws && !from_token)
+			set_errbar("Please fill out all fields.")
 
 		if (await fetch_file(from_ws, from_token))
 			console.log("done?")
 
-		get_submit_button.textContent = "Please Wait..."
+		get_submit_btn.textContent = "Please Wait..."
 	});
 })();
 
@@ -117,6 +132,7 @@ get_file_drop(ev)
                 file = ev.dataTransfer.items[i].getAsFile();
 		update_file_input(file)
         }
+
 	return file
 }
 
@@ -134,7 +150,7 @@ gen_download_link(name, dataURL)
 }
 
 async function
-file_to_dataURL(file)
+dataURL_from_file(file)
 {
 	return new Promise((resolve,reject) => {
 		const reader = new FileReader()
@@ -173,13 +189,11 @@ update_file_input(file)
 async function
 handle_received_chunk(data)
 {
-	console.log("got something from the ws")
-	
-	received_file += decode_ws_message(data)
+	received_file += get_decoded_msg(data)
 }
 
 function
-decode_ws_message(data)
+get_decoded_msg(data)
 {
 	const td = new TextDecoder()
 
@@ -197,16 +211,16 @@ decode_ws_message(data)
 }
 
 async function
-send_file(file, http_endpoint, token, addr)
+send_file(file, http_url, token, addr)
 {
-	const dataURL = await file_to_dataURL(file)
-	const address = await fetch_hopr_address(http_endpoint, token)
+	const dataURL = await dataURL_from_file(file)
+	const address = await fetch_hopr_address(http_url, token)
 
 	if (!dataURL) {
 		return false
 	}
 
-	let nchunks = Math.ceil(dataURL.length / MAX_MSG_SIZE)
+	const nchunks = Math.ceil(dataURL.length / MAX_MSG_SIZE)
 	let acc     = new Array(nchunks)
 
 	const meta = JSON.stringify({
@@ -215,24 +229,24 @@ send_file(file, http_endpoint, token, addr)
 		/*filesize:*/
 	})
 
-	console.log("SENDING META")
-	await send_message(http_endpoint,
-	                   meta,
-	                   address,
-	                   token)
+	/* Send the metadata first. */
+	await send_msg(http_url,
+	               meta,
+	               address,
+	               token)
 
-	console.log("SENT META")
 
 	let i = 0, from = 0
 	while (i < nchunks) {
-		send_submit_button.innerHTML = `Please Wait...<BR/>${(i/nchunks).toFixed()*100}% Sent`
+		send_submit_btn.innerHTML = `Please Wait...<BR/>
+		                             ${pctage(i, nchunks)} Sent`
 		acc[i] = dataURL.substr(from, MAX_MSG_SIZE)
 
 		console.log(`sending chunk ${i}/${nchunks}...`)
-		await send_message(http_endpoint,
-		                   acc[i],
-		                   address,
-		                   token)
+		await send_msg(http_url,
+		               acc[i],
+		               address,
+		               token)
 
 		from += MAX_MSG_SIZE
 		i++
@@ -242,38 +256,41 @@ send_file(file, http_endpoint, token, addr)
 }
 
 async function
-fetch_hopr_address(http_endpoint, token)
+fetch_hopr_address(http_url, token)
 {
+	let url = new URL(http_url)
+	url.protocol = "https:"
+	url.pathname = "/api/v2/account/addresses"
+
 	const headers = get_headers(token)
 
-	const account = await fetch(`${http_endpoint}/api/v2/account/addresses`, {
+	const account = await fetch(url, {
 	            headers: headers,
 	}).then(res => res.json())
 
 	return account.hopr
 }
 
-
 async function
-send_message(to_http, message, address, token)
+send_msg(to_http, message, address, token)
 {
+	const url = new URL(to_http)
+	url.pathname = "/api/v2/messages"
+
 	const headers = get_headers(token)
 
-	console.log("recipient's peer id: ", address)
-	console.log("message: ", message.slice(0, 25))
-	console.log("message full len: ", message.length)
-
-	const bod = JSON.stringify({
-                    	recipient: address,
-                    	body:      message,
+	const body = JSON.stringify({
+        	recipient: address,
+        	body:      message,
 	});
-	console.log("body: ", bod)
 
-	await fetch(`${to_http}/api/v2/messages`, {
-	            method: "POST",
-	            headers: headers,
-	            body:    bod,
-	            }).catch(err => {console.log("messed up!")})
+	const req = {
+        	method: "POST",
+        	headers: headers,
+        	body:    body,
+	}
+
+	await fetch(url, req)
 }
 
 async function
@@ -284,33 +301,34 @@ fetch_file(from_url, token)
 	ws_url.pathname = "/api/v2/messages/websocket"
 	ws_url.search   = "?apiToken=" + token
 
-	let meta  = null
-	let first = true
+	let meta      = null
+	let first     = true
 	let remaining = null
 
-	console.log(ws_url)
-
 	const socket = new WebSocket(ws_url)
+
 	let err;
+
 	socket.onopen = (ev) => {
 		console.log("socket opened!")
+		bg_folder.style.border    = "3px solid limegreen"
+		bg_folder.style.borderTop = "none"
 	}
 
 	socket.onerror = (ev) => {
 		err = true;
 
-		get_submit_button.innerHTML = "Can't reach that websocket. Sorry! <BR/> Click to try again"
-		get_submit_button.classList.add("err")
+		set_errbar("Can't reach that HOPR node, please try again later.")
+		//get_submit_btn.innerHTML = "Can't reach that websocket. Sorry! <BR/> Click to try again"
+		//get_submit_btn.classList.add("err")
 	}
 
-	let handle_message = (ev) => {
+	const handle_message = (ev) => {
 		if (first) {
-			let deco = decode_ws_message(ev.data)
+			const deco = get_decoded_msg(ev.data)
 
-			meta = JSON.parse(decode_ws_message(ev.data))
+			meta = JSON.parse(get_decoded_msg(ev.data))
 
-			console.log("deco evdata: ",   deco)
-			console.log("evdata type: ",   typeof(deco))
 			console.log("evdata string: ", deco.toString())
 
 			remaining = meta.nchunks
@@ -319,8 +337,8 @@ fetch_file(from_url, token)
 			return
 		}
 
-		//get_submit_button.innerHTML = `Please Wait...<BR/>
-		//                               ${(meta.nchunks/remaining).toFixed()*100}% Received`
+		get_submit_btn.innerHTML = `Please Wait...<BR/>
+		                            ${pctage(meta.nchunks, remaining)} Received`
 
 		console.log("got a chunk from the websocket")
 		handle_received_chunk(ev.data)
@@ -329,7 +347,7 @@ fetch_file(from_url, token)
 		console.log(remaining, meta.nchunks)
 
 		if (remaining <= 0) {
-			get_submit_button.textContent = "Done!"
+			get_submit_btn.textContent = "Done!"
 			gen_download_link(meta.filename, received_file)
 
 			remaining = null

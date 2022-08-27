@@ -10,6 +10,7 @@
 	right:             1rem;
 	bottom:            1rem;
 	font-size:         2rem;
+	font-weight:       bold;
 	color:             white;
 	text-align:        center;
 	cursor:            pointer;
@@ -34,6 +35,10 @@
 	height:            16em;
 	width:             12em;
 	border:            2px solid #0004D8;
+
+	animation-name:     fade-in;
+	animation-duration: .5s;
+
 	transition:        box-shadow .15s,
 	                   border     .15s;
 }
@@ -47,6 +52,16 @@
 	position:   absolute;
 	bottom:     auto;
 	left:       auto;
+}
+@keyframes fade-in {
+from {
+	opacity: 0;
+	transform: rotate(5deg)
+	           translate(-2rem, -2rem);
+} to {
+	opacity: 100;
+	transform: none;
+}
 }
 
 .download-icon {
@@ -64,6 +79,11 @@
 	animation-fill-mode: forwards;
 }
 @keyframes slidein {
-	from { top: -50%; transform: none; }
-	to   { top: 50%;  transform: rotate(10deg); }
+from {
+	top: -50%;
+	transform: none;
+} to {
+	top: 50%;
+	transform: rotate(10deg);
+}
 }

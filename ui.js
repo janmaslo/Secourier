@@ -1,29 +1,28 @@
 const $ = document.querySelector.bind(document);
 
-const full            = $("#full-folder");
-const send_button     = $(".btn.send");
-const download_button = $(".btn.download");
-const prompt          = $(".prompt");
+const full         = $("#full-folder");
+const send_btn     = $(".btn.send");
+const download_btn = $(".btn.download");
+const prompt       = $(".prompt");
+const front        = $(".front");
 
-const front = $(".front");
+(function()
+{
+	send_btn.addEventListener("click", () => {
+		send_btn.classList.add("pressed");
 
-(function() {
-	send_button.addEventListener("click", () => {
-		console.log("adding pressed")
-		send_button.classList.add("pressed");
-		console.log("added pressed?")
 		setTimeout(Extend_prompt, 200)
 	});
 
-	download_button.addEventListener("click", () => {
-		download_button.classList.add("pressed");
+	download_btn.addEventListener("click", () => {
+		download_btn.classList.add("pressed");
 		full.classList.add("open")
 
 		let x = document.createElement("div")
 		x.classList = "close-button"
 
 		x.onclick = () => {
-			download_button.classList.remove("pressed");
+			download_btn.classList.remove("pressed");
 			full.classList.remove("open")
 			x.remove()
 		}
@@ -32,20 +31,25 @@ const front = $(".front");
 	});
 })()
 
-function Collapse_prompt() {
-	send_button.classList.remove("pressed")
-	send_button.innerText = "Send more!";
+function
+Collapse_prompt()
+{
+	send_btn.classList.remove("pressed")
+	send_btn.innerText = "Send more!";
 
 	prompt.classList.remove("centered");
+
 	setTimeout(() => {
 		prompt.classList.remove("extended");
-		$("BODY").classList.remove("blurred");
+		document.body.classList.remove("blurred");
 	}, 1200);
 
 	document.body.removeEventListener("click", minimize_prompt)
 }
 
-function Extend_prompt() {
+function
+Extend_prompt()
+{
 	prompt.classList.add("extended");
 
 	setTimeout(() => {
@@ -53,11 +57,13 @@ function Extend_prompt() {
 		document.body.classList.add("blurred");
 
 		document.body.addEventListener("click", minimize_prompt)
-	}, 800)
+	}, 700)
 }
 
-function minimize_prompt(ev) {
-	send_button.classList.remove("pressed")
+function
+minimize_prompt(ev)
+{
+	send_btn.classList.remove("pressed")
 
 	if (prompt.contains(ev.target) || ev.target.classList.contains("prompt-item"))
 		return

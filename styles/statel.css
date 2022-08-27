@@ -14,6 +14,39 @@ HTML { width: 100vw; height: 110vh; }
 	--hopr-blue:    #3232F4;
 	--darker-blue:  #0000A4;
 	--hopr-yellow:  #5252F4;
+	--light-gray:   #AAA1A1;
+
+	--gradient:
+	linear-gradient(
+		to bottom right,
+	        #6565FF,
+		var(--darker-blue));
+}
+
+.errbar {
+	font-family: sans;
+	font-size: 1.3rem;
+	background: linear-gradient(to top, #A00 25%, 35%, rgba(0, 0, 0, 0) 100%);
+	background-position: 0 5rem;
+
+	color:            white;
+	text-align:       center;
+	position:         absolute;
+	bottom:           0;
+	left:             0;
+	height:           5rem;
+	width:            100%;
+	display:          flex;
+	justify-content:  center;
+	align-items:      flex-end;
+	background-repeat: no-repeat;
+
+	transition: background-position .5s;
+}
+
+.errbar.active {
+	background-position: 0;
+	background-repeat: no-repeat;
 }
 
 BODY {
@@ -190,7 +223,8 @@ MAIN H1 {
 	background-color:  #C2A377;
 	z-index:           0;
 	transition:        transform .3s,
-	                   top       .3s;
+	                   top       .3s,
+	                   border    .3s;
 }
 #bg-folder .content {
 	width:             100%;
@@ -216,7 +250,7 @@ MAIN H1 {
 	background:  linear-gradient(to top, var(--front-folder), 85%,  #C3A478);
 }
 #full-folder.open .prompt {
-	top: -110%;
+	top: -113%;
 }
 
 .prompt {
@@ -245,23 +279,28 @@ MAIN H1 {
 	transform: scale(1.2);
 }
 
-LABEL { color: #1D1A1A; }
+LABEL { color: #1D1A1A; width: 23rem; }
 .form.get LABEL, .settings LABEL { color: #f8f8ff; font-weight: bold;}
 
 INPUT {
-	font-size:      1.5rem;
+	font-family:    initial;
+	font-size:      1.4rem;
 	display:        block;
 	height:         3.5rem;
-	width:          100%;
+	width:          23rem;
+	max-width:      100%;
 	/*border:         1.5px solid var(--darker-blue);*/
 	border:         1.5px solid #AAA1A1;
 	border-radius:  .5rem;
 	padding-left:   1rem;
+
+	transition:     border 1s;
 }
 INPUT:focus {
 	outline:  none;
+	border:   1.5px solid var(--hopr-blue);
 }
-.submit-button.login {
+.submit-btn.login {
 	height: 3.5rem;
 }
 
@@ -274,15 +313,16 @@ BODY * { transition: filter 1s; }
 
 .prompt INPUT[type="file"] { display: none; }
 .label-button {
-	max-width:        30em;
+	width:            33em;
 	display:          flex;
+	flex-direction:   column;
 	align-items:      center;
-	justify-content:  space-around;
+	justify-content:  center;
 	cursor:           pointer;
 	border-radius:    .3em;
 	border:           2px dashed #AAAA77;
 	position:         relative;
-	flex:             1;
+	color:            #6e6e6e;
 }
 .prompt H1 {
 	font-size: 1.3em;
@@ -299,13 +339,13 @@ BODY * { transition: filter 1s; }
 .input-left {
 	display:         flex;
 	flex-direction:  column;
+	align-items:     center;
 	gap:             .8rem;
 }
 
 .input-flex {
 	display:          flex;
-	gap:              1rem;
-	justify-content:  center;
+	justify-content:  space-between;
 	align-items:      center;
 	flex-direction:   column;
 	flex-wrap:        wrap;
@@ -319,23 +359,52 @@ DIV.form {
 DIV.form.send {
 	height: 26rem;
 }
-DIV.form.get .input-left {
-	/*background:        linear-gradient(to bottom right, var(--hopr-blue), var(--darker-blue));*/
-	padding:           2rem;
+.input-left .login {
+	gap:            .5rem;
+	padding:        .8rem;
+	background:     var(--gradient);
+	border-radius:  .4rem;
+}
+.input-left .login LABEL {
+	color: white;
+}
+
+DIV.form.get .input-left.full {
+	padding:           .4rem;
 	border-radius:     .5rem;
-	background-color:  var(--dark-folder);
-	background-image:  linear-gradient(to top right,
-	                                   #FFFFFF00, 75%,
+	background-image:  linear-gradient(to top ,
+	                                   #FFFFFF00, 35%,
 	                                   #7F6666);
 	                                   /*#3636FF);*/
 }
 
-.submit-button.err {
+.submit-btn {
+	border-radius:  1rem;
+	width:          23rem;
+	height:         7rem;
+	font-weight:    bold;
+	font-size:      1.4rem;
+	color:          #EEF;
+	background:     var(--gradient);
+	/*border:         2px solid #f8f8ff;*/
+	transition:     background .5s,
+	                transform  .3s,
+	                color      .3s;
+}
+.submit-btn:hover:not(.err) {
+	transform:    scale(.99);
+	filter:       brightness(1.05);
+	font-weight:  bold;
+	border:       1.5px solid #ADADBD;
+}
+.submit-btn:active { color: #f8f8ff; }
+
+.submit-btn.err {
 	width:       100%;
 	background:  linear-gradient(to bottom right, #700, #A00);
 	position:    relative;
 }
-.submit-button.err::after {
+.submit-btn.err::after {
 	content:     "!";
 	color:       #A00;
 	font-size:   9rem;
@@ -344,32 +413,10 @@ DIV.form.get .input-left {
 	top:         -2rem;
 	transform:   rotate(8deg);
 }
-.submit-button.clicked {
+.submit-btn.clicked {
 	border:   2px solid #00A;
 	opacity:  0.8;
 }
-.submit-button {
-	border-radius:  1rem;
-	width:          23rem;
-	height:         7rem;
-	font-weight:    bold;
-	font-size:      1.4rem;
-	color:          #EEF;
-	background:     linear-gradient(to bottom right,
-	                                #6565FF,
-	                                var(--darker-blue));
-	/*border:         2px solid #f8f8ff;*/
-	transition:     background .5s,
-	                transform  .3s,
-	                color      .3s;
-}
-.submit-button:hover:not(.err) {
-	transform:    scale(.99);
-	filter:       brightness(1.05);
-	font-weight:  bold;
-	border:       1.5px solid #ADADBD;
-}
-.submit-button:active { color: #f8f8ff; }
 
 FOOTER {
 	background-color: #1A1110;

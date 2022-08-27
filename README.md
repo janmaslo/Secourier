@@ -29,7 +29,7 @@ Base-64 encoding in particular is achieved using the dataURL WebAPI and
 the decoding of character values by the TextDecoder API, among others.
 
 As I found the ethereum implementation subpar, I made an effort to reimplement
-an RLP decoder myself, but eventually settled on the official one as it proved
+an [RLP]() decoder myself, but eventually settled on the official one as it proved
 sufficient and time was better spent on other aspects of the application.
 
 
@@ -81,3 +81,4 @@ Possible additions
 * General UI improvements including:
 	- layout adjustments
 	- colorscheme changes
+* Allow logging in with the user's HOPR node credentials
